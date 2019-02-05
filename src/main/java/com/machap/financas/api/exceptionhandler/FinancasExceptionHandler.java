@@ -54,6 +54,7 @@ public class FinancasExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	public static class Erro {
+
 		private String mensagemUsuario;
 		private String mensagemDesenvolvedor;
 
@@ -69,5 +70,6 @@ public class FinancasExceptionHandler extends ResponseEntityExceptionHandler {
 		public String getMensagemDesenvolvedor() {
 			return mensagemDesenvolvedor;
 		}
+
 	}
 }
