@@ -24,6 +24,7 @@ import com.machap.financas.api.event.RecursoCriadoEvent;
 import com.machap.financas.api.exceptionhandler.FinancasExceptionHandler.Erro;
 import com.machap.financas.api.model.Lancamento;
 import com.machap.financas.api.repository.LancamentoRepository;
+import com.machap.financas.api.repository.filter.LancamentoFilter;
 import com.machap.financas.api.service.LancamentoService;
 import com.machap.financas.api.service.exception.PessoaInexistenteOuInativaException;
 
@@ -43,8 +44,8 @@ public class LancamentoResource {
 	private MessageSource messageSource;
 
 	@GetMapping
-	public List<Lancamento> listar() {
-		return lancamentoRepository.findAll();
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter) {
+		return lancamentoRepository.filtrar(lancamentoFilter);
 	}
 
 	@GetMapping("/{codigo}")
