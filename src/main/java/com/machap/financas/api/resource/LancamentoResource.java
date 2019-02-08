@@ -30,6 +30,7 @@ import com.machap.financas.api.exceptionhandler.FinancasExceptionHandler.Erro;
 import com.machap.financas.api.model.Lancamento;
 import com.machap.financas.api.repository.LancamentoRepository;
 import com.machap.financas.api.repository.filter.LancamentoFilter;
+import com.machap.financas.api.repository.projection.ResumoLancamento;
 import com.machap.financas.api.service.LancamentoService;
 import com.machap.financas.api.service.exception.PessoaInexistenteOuInativaException;
 
@@ -52,6 +53,12 @@ public class LancamentoResource {
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
 	public Page<Lancamento> pesquisar(LancamentoFilter lancamentoFilter, Pageable pageable) {
 		return lancamentoRepository.filtrar(lancamentoFilter, pageable);
+	}
+	
+	@GetMapping(params = "resumo")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
+	public Page<ResumoLancamento> resumir(LancamentoFilter lancamentoFilter, Pageable pageable) {
+		return lancamentoRepository.resumir(lancamentoFilter, pageable);
 	}
 
 	@GetMapping("/{codigo}")
