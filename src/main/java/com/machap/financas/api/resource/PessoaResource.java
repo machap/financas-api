@@ -1,5 +1,7 @@
 package com.machap.financas.api.resource;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.machap.financas.api.event.RecursoCriadoEvent;
 import com.machap.financas.api.model.Pessoa;
 import com.machap.financas.api.repository.PessoaRepository;
+import com.machap.financas.api.repository.filter.PessoaFilter;
 import com.machap.financas.api.service.PessoaService;
 
 @RestController
@@ -35,6 +38,12 @@ public class PessoaResource {
 
 	@Autowired
 	private PessoaService pessoaService;
+	
+	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
+	public List<Pessoa> pesquisar(PessoaFilter pessoaFilter) {
+		return pessoaRepository.filtrar(pessoaFilter);
+	}
 
 	@PostMapping
 	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
